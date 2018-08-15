@@ -1,2 +1,4 @@
-# Deep_Discriminative_Features_Learning_and_Sampling_for_Imbalanced_Data_Problem
+# Deep Discriminative Features Learning and Sampling for Imbalanced Data Problem
 Deep Discriminative Features Learning and Sampling for Imbalanced Data Problem
+
+
