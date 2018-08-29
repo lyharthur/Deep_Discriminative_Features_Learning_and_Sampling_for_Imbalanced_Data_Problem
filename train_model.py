@@ -90,7 +90,7 @@ if __name__ == '__main__':
         else:
             C.train(ckpt_dir=ckpt_folder, restore=False, batch_size=128)
 
-    elif model == 'my' :
+    elif model == 'DFBS_image' :
         class_id_pre = class_id.split(',')[0]
         for i in range(1,int(class_num)):
             class_id_post = class_id.split(',')[i]
@@ -123,7 +123,7 @@ if __name__ == '__main__':
             AUC = final_predict()
             print(AUC)
 
-    elif model == 'my_csv' :
+    elif model == 'DFBS_csv' :
         AUC_total = 0
         data = mydata_csv(data_file=train_data_folder, class_num=int(class_num))
 
