@@ -231,41 +231,7 @@ class mydata():
 
         print('Maj, min, val')
         print(self.len_train_Maj, self.len_train_min, self.len_val)
-        '''
-        #get_img
-        img_list = [get_img(img_path, self.size) for img_path in data_list]
-        self.data = img_list
 
-        #datapath = data_folder+'data/'+class+'/'
-        
-    
-        #self.data = glob(os.path.join(datapath, '*.jpg'))
-        #print(self.data)
-
-        # old version?
-        label = [] 
-        check = []
-        label_count = -1
-        for path in data_list: 
-            class_id = path.split('/')[6]#7,5
-            #print(class_id)
-            if class_id not in check:
-                check.append(class_id)
-                label_count+=1
-            label.append(label_count)
-
-        #print(label)
-        one_hot = np.zeros((len(label),self.y_dim))###self.y_dim  # my im gan = 2
-        for i,val in enumerate(label):
-            one_hot[i,val]=1
-        #print(one_hot)
-        self.label = one_hot
-        #print(len(label)) 
-        self.batch_count = 0
-
-        tmp = list(zip(self.data, self.label))
-        random.shuffle(tmp)
-        self.data ,self.label = zip(*tmp)'''
 
     def __call__(self,batch_size):
         #print(img_b)
@@ -287,13 +253,6 @@ class mydata():
         img_b = np.array(img_b).astype(np.float32)
         
        
-
-        '''
-        print self.batch_count
-        fig = self.data2fig(batch_imgs[:16,:,:])
-        plt.savefig('out_face/{}.png'.format(str(self.batch_count).zfill(3)), bbox_inches='tight')
-        plt.close(fig)
-        '''
         #print(len(label_list))
         return img_b, label_b
 
@@ -316,42 +275,7 @@ class mydata():
             #sample = new_sample ## for 1d to 3d
             plt.imshow(sample)
         return fig
-
-class mnist():
-    def __init__(self, flag='conv', is_tanh = False):
-        datapath = folder+'GAN_yhliu/MNIST_data'
-        self.X_dim = 784 # for mlp
-        self.z_dim = 100
-        self.y_dim = 10
-        self.size = 28 # for conv
-        self.channel = 1 # for conv
-        self.data = input_data.read_data_sets(datapath, one_hot=True)
-        self.flag = flag
-        self.is_tanh = is_tanh
-
-    def __call__(self,batch_size):
-        batch_imgs,y = self.data.train.next_batch(batch_size)
-        if self.flag == 'conv':
-            batch_imgs = np.reshape(batch_imgs, (batch_size, self.size, self.size, self.channel)) 
-        if self.is_tanh:
-            batch_imgs = batch_imgs*2 - 1        
-        return batch_imgs, y
-
-    def data2fig(self, samples):
-        if self.is_tanh:
-            samples = (samples + 1)/2
-        fig = plt.figure(figsize=(4, 4))
-        gs = gridspec.GridSpec(4, 4)
-        gs.update(wspace=0.05, hspace=0.05)
-
-        for i, sample in enumerate(samples):
-            ax = plt.subplot(gs[i])
-            plt.axis('off')
-            ax.set_xticklabels([])
-            ax.set_yticklabels([])
-            ax.set_aspect('equal')
-            plt.imshow(sample.reshape(self.size,self.size), cmap='Greys_r')
-        return fig    
+ 
 
 if __name__ == '__main__':
     data = face3D()
