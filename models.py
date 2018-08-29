@@ -31,15 +31,13 @@ def squared_dist(A):
     return distances
 
 def get_center_loss(features, labels, alpha, beta, gamma, num_classes, ratio):
-    # alpha:中心的更新比例
+    
     centers = tf.get_variable('centers', [num_classes, features.get_shape()[1]], dtype=tf.float32,
             initializer=tf.constant_initializer(0), trainable=False)
-    # 将特征reshape成一维
     labels = tf.reshape(labels, [-1])
 
     labels = tf.cast(labels, tf.int32)
     # print(centers,labels)
-    # 获取当前batch每个样本对应的中心
     centers_batch = tf.gather(centers, labels)
 
     weights_batch = tf.cast(tf.gather(ratio, labels), tf.float32)
@@ -50,21 +48,18 @@ def get_center_loss(features, labels, alpha, beta, gamma, num_classes, ratio):
     weighted_loss = tf.nn.l2_loss(weighted_distance_batch)
 
     # var_target_batch = tf.cast(tf.pow(tf.gather(ratio, labels),2), tf.float32)*gamma
-    
-    # 计算center loss的数值
+
     # output = sum(t ** 2) / 2
     centers_loss = tf.nn.l2_loss(features - centers_batch)
 
-    # 以下为更新中心的步骤
+
     diff = centers_batch - features
-    # 获取一个batch中同一样本出现的次数，这里需要理解论文中的更新公式
     unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)
     appear_times = tf.gather(unique_count, unique_idx)
     appear_times = tf.reshape(appear_times, [-1, 1])
 
     diff = diff / tf.cast((1 + appear_times), tf.float32)
     diff = alpha * diff
-    # 更新中心
     centers = tf.scatter_sub(centers, labels, diff)
 
     pairwise_centers_distance = tf.reduce_mean(squared_dist(centers))
