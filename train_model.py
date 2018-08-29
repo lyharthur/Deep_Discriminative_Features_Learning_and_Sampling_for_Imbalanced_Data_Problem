@@ -20,16 +20,9 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = '1'
     #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
+    #image
     #train_data_folder = './datas/imagenet/train/'
     #val_data_folder = './datas/imagenet/test/'
-
-    #train_data_folder = './datas/tsmc/train/'
-    #val_data_folder = './datas/tsmc/test/'
-
-    #'dog,cat,bird,fish,insect,food,plant,rabbit,scenery,snake'
-
-    # train_data_folder = './datas/dog_cat/train/'
-    # val_data_folder = './datas/dog_cat/test/'
     
     # train_data_folder = './datas/mnist/train-images/'
     # val_data_folder = './datas/mnist/test-images/'   
@@ -39,9 +32,8 @@ if __name__ == '__main__':
 
     # train_data_folder = './datas/cifar10/train-images/'
     # val_data_folder = './datas/cifar10/test-images/'
-
-    # train_data_folder = './datas/test_data.csv'
-
+    
+    #csv
     # train_data_folder = './datas/diabete.csv'
     train_data_folder = './datas/Haberman.csv'
     # train_data_folder = './datas/satimage.csv'
