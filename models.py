@@ -700,7 +700,7 @@ class My_research_csv():
                 # print('triplet:', triplet_L)#, 'autoencoder', MSE_L)
 
 
-                if epoch % 1000 == 0 and epoch > 1000: 
+                # if epoch % 1000 == 0 and epoch > 1000: 
                     # learning_rate *=0.5
                 #     #plot t-SNE
                 #     # print("Computing t-SNE embedding")           
@@ -713,36 +713,6 @@ class My_research_csv():
                     # X_pca = pca.fit_transform(feature)
                     # plot_embedding(X_pca, y_train, "pca") 
 
-                #     # validation
-                #     self.data.batch_count = 0
-                #     X_val_b, y_val_b = self.data.get_batch_tfrecord(self.sess, self.atrr_val, self.label_val, self.class_num, batch_size)
-                #     # X_val_b, y_val_b = self.data.get_batch(self.data.test_set, batch_size, self.data.size)  
-                #     feature, y_pred, confusion_matrix_final = self.sess.run(
-                #                 [self.feature, self.pred, self.confusion_matrix],
-                #                 feed_dict={self.X: X_val_b, self.y: y_val_b, self.ratio: ratio})
-                #     # print(feature)
-                #     y_val_b_total = np.argmax(y_val_b, axis=1)
-                #     y_pred_total = np.argmax(y_pred, axis=1)
-
-                #     #print(batch_number)
-                #     batch_number = self.data.count_v//batch_size
-                #     for _ in range(batch_number):
-                #         X_val_b, y_val_b = self.data.get_batch_tfrecord(self.sess, self.atrr_val, self.label_val, self.class_num, batch_size)
-                #         # X_val_b, y_val_b = self.data.get_batch(self.data.test_set, batch_size, self.data.size)
-                #         y_pred, confusion_matrix_val = self.sess.run(
-                #                         [self.pred, self.confusion_matrix],
-                #                         feed_dict={self.X: X_val_b, self.y: y_val_b, self.ratio: ratio})
-                #         y_val_b = np.argmax(y_val_b, axis=1)
-                #         y_pred = np.argmax(y_pred, axis=1)
-
-                #         y_val_b_total = np.append(y_val_b_total, y_val_b)
-                #         y_pred_total = np.append(y_pred_total, y_pred)
-
-                #         # print(y_val_b_total.shape, y_pred_total.shape)
-                #         confusion_matrix_final += confusion_matrix_val
-                #     print(confusion_matrix_final)
-                #     print(classification_report(y_val_b_total, y_pred_total))
-                #     # self.data.batch_count = 0
                     
 
     def get_feature(self, test, batch_size = 64):
