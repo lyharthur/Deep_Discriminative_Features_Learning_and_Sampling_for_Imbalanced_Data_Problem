@@ -15,21 +15,21 @@ Comment parameters :
 
 ## Short discription of the code 
 
-1.	train_model.py 
+1.	train_model.py <br />
 Main script who read the dataset and call the DFBS model.
 
-2.	datas.py 
+2.	datas.py <br />
 To read the dataset.
 
-3.	tfrecord.py 
+3.	tfrecord.py <br />
 To transform the original data to the Tfrecord data type.
 
-4.	nets.py 
+4.	nets.py <br />
 Network architectures, like CNN, DNN and autoencoder.
 
-5.	models.py 
+5.	models.py <br />
 The setting about model training. Ex: Loss functions, Optimizer, Learning rate, and Training epochs。
 
-6.	tuning_and_eval.py
+6.	tuning_and_eval.py <br />
 Applying the classifier(Logistic regression) on the final outputs, synthetic feature vectors and orignal vectors.
 
