@@ -31,7 +31,6 @@ def squared_dist(A):
     return distances
 
 def get_center_loss(features, labels, alpha, beta, gamma, num_classes, ratio):
-    
     centers = tf.get_variable('centers', [num_classes, features.get_shape()[1]], dtype=tf.float32,
             initializer=tf.constant_initializer(0), trainable=False)
     labels = tf.reshape(labels, [-1])
@@ -48,10 +47,9 @@ def get_center_loss(features, labels, alpha, beta, gamma, num_classes, ratio):
     weighted_loss = tf.nn.l2_loss(weighted_distance_batch)
 
     # var_target_batch = tf.cast(tf.pow(tf.gather(ratio, labels),2), tf.float32)*gamma
-
+    
     # output = sum(t ** 2) / 2
     centers_loss = tf.nn.l2_loss(features - centers_batch)
-
 
     diff = centers_batch - features
     unique_label, unique_idx, unique_count = tf.unique_with_counts(labels)
@@ -60,6 +58,7 @@ def get_center_loss(features, labels, alpha, beta, gamma, num_classes, ratio):
 
     diff = diff / tf.cast((1 + appear_times), tf.float32)
     diff = alpha * diff
+    # 更新中心
     centers = tf.scatter_sub(centers, labels, diff)
 
     pairwise_centers_distance = tf.reduce_mean(squared_dist(centers))
@@ -145,6 +144,7 @@ class Classifer():
         self.class_num = self.data.class_num # condition
         self.size = self.data.size
         self.channel = self.data.channel
+        # feature size
         self.feature_size = 32
 
         self.ratio = tf.placeholder(tf.int32, shape=[self.class_num])
@@ -306,19 +306,18 @@ class My_research():
     def  __init__(self, net, data):
         self.network = net
         self.data = data
+        # set which classes are minority
+
         # self.min = [0,1,2,3,4,5,6,7]
         # self.min = [0,1,2,3,4]
         self.min = [1]
         #self.class_num = self.data.class_num # num of classes
-        self.class_num = 10 # 10 -> 2
+        self.class_num = 10 
         self.size = self.data.size
-        # self.feature_size = 64 #mnist
-        self.feature_size = 32 #cifar
+        # feature size
+        self.feature_size = 32 
         self.channel = self.data.channel
 
-        # 建立一个变量，存储每一类的中心，不训练
-        # self.centers = tf.get_variable('centers', [self.class_num, self.feature_size], dtype=tf.float32,
-        #     initializer=tf.constant_initializer(0), trainable=False)
                 
         self.ratio = tf.placeholder(tf.int32, shape=[self.class_num])
         self.X_A = tf.placeholder(tf.float32, shape=[None, self.size, self.size, self.channel])
@@ -356,6 +355,7 @@ class My_research():
 
         self.center_loss, self.centers, self.t1, self.t2, self.t3 = get_center_loss(self.A_feature, self.y_A, _alpha, _beta, _gamma, self.data.class_num, self.ratio)
 
+        # different loss combinations
         self.total_loss = self.cross_entropy + self.center_loss
         # self.total_loss = self.triplet_loss
 
@@ -511,6 +511,7 @@ class My_research():
         X_fake = np.zeros((1, self.size))
         # create temporary feature
         count_syntheic = 0
+        # get how much synthetic feature
         while(count_syntheic < (self.data.len_train_min)):
         # while(count_syntheic < (self.data.count_t1)//2):
         #for _ in range(1):
@@ -584,11 +585,10 @@ class My_research():
 class My_research_csv():
     def  __init__(self, net, data):
         self.network = net
-        # self.min = [0,1,2,3,4]
-        # self.min = [0]
+
         self.class_num = data.class_num # num of classes
         self.size = data.size
-
+        # feature size
         self.feature_size = 8
 
         
@@ -632,10 +632,12 @@ class My_research_csv():
 
         # self.center_loss, self.centers, self.t1, self.t2, self.t3 = get_center_loss(self.feature, tf.argmax(self.y, 1), _alpha, _beta, _gamma, self.class_num, self.ratio)
 
+        # different loss combinations
         # self.total_loss = self.cross_entropy + self.triplet_loss
         # self.total_loss = self.cross_entropy + self.center_loss*_lamda
         # self.total_loss = self.mse 
         self.total_loss = self.triplet_loss*_lamda + self.mse
+
         self.train_step = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(self.total_loss, var_list=self.network.vars)
         # self.train_step = tf.train.GradientDescentOptimizer(learning_rate=1e-3).minimize(self.total_loss,  var_list=self.network.vars)
         # self.train_step = tf.train.RMSPropOptimizer(learning_rate=1e-4,decay=0.9,momentum=0.1).minimize(self.total_loss,  var_list=self.network.vars)
@@ -770,6 +772,7 @@ class My_research_csv():
         X_fake = np.zeros((1, self.size))
         # create temporary feature
         count_syntheic = 0
+        # get how much synthetic feature
         while(count_syntheic < (self.data.count_t0 - self.data.count_t1)//2):
         # while(count_syntheic < (self.data.count_t1)*2):
         #for _ in range(1):

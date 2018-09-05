@@ -20,20 +20,28 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = '1'
     #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
-    #image
     #train_data_folder = './datas/imagenet/train/'
     #val_data_folder = './datas/imagenet/test/'
+
+    #train_data_folder = './datas/tsmc/train/'
+    #val_data_folder = './datas/tsmc/test/'
+
+    #'dog,cat,bird,fish,insect,food,plant,rabbit,scenery,snake'
+
+    # train_data_folder = './datas/dog_cat/train/'
+    # val_data_folder = './datas/dog_cat/test/'
     
     # train_data_folder = './datas/mnist/train-images/'
     # val_data_folder = './datas/mnist/test-images/'   
+
 
     # train_data_folder = './datas/fashion/train-images/'
     # test_data_folder = './datas/fashion/test-images/'
 
     # train_data_folder = './datas/cifar10/train-images/'
     # val_data_folder = './datas/cifar10/test-images/'
-    
-    #csv
+
+    #csv datasets
     # train_data_folder = './datas/diabete.csv'
     train_data_folder = './datas/Haberman.csv'
     # train_data_folder = './datas/satimage.csv'
@@ -91,7 +99,7 @@ if __name__ == '__main__':
         new_class_id = class_id_pre
         print(new_class_id)
 
-        ckpt_folder = folder+'ckpt/triplet_'+img_size+'_'+new_class_id+'/'
+        ckpt_folder = folder+'ckpt/DFBS_image_'+img_size+'_'+new_class_id+'/'
         #restore_folder = folder+'ckpt/BE_GAN_'+img_size+'_'+class_id+'/'
 
         # network 
@@ -128,7 +136,7 @@ if __name__ == '__main__':
 
         # run
         for _ in range(5):
-            ckpt_folder = folder+'ckpt/mycsv_'+img_size+'/'
+            ckpt_folder = folder+'ckpt/DFBS_csv_'+img_size+'/'
             data = mydata_csv(data_file=train_data_folder, class_num=int(class_num))
 
             model_1.train(data, ckpt_dir=ckpt_folder, restore=False, batch_size=64)
