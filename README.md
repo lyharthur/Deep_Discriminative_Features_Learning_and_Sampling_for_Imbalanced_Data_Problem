@@ -1,6 +1,7 @@
 # Deep Discriminative Features Learning and Sampling for Imbalanced Data Problem
 Deep Discriminative Features Learning and Sampling for Imbalanced Data Problem
 
+## Using the script
 Comment example : python3 train_model.py DFBS_csv 0 0,1 2 1 False
 
 Comment parameters : 
@@ -12,4 +13,23 @@ Comment parameters :
 5. imb_ratio: for balanced data to create imbalanced data 
 6. Restore_ckpt: True or False
 
+## Short discription of the code 
+
+1.	train_model.py 
+Main script who read the dataset and call the DFBS model.
+
+2.	datas.py 
+To read the dataset.
+
+3.	tfrecord.py 
+To transform the original data to the Tfrecord data type.
+
+4.	nets.py 
+Network architectures, like CNN, DNN and autoencoder.
+
+5.	models.py 
+The setting about model training. Ex: Loss functions, Optimizer, Learning rate, and Training epochs。
+
+6.	tuning_and_eval.py
+Applying the classifier(Logistic regression) on the final outputs, synthetic feature vectors and orignal vectors.
 
