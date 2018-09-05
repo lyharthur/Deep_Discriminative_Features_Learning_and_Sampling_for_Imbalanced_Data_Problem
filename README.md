@@ -33,3 +33,12 @@ The setting about model training. Ex: Loss functions, Optimizer, Learning rate, 
 6.	tuning_and_eval.py <br />
 Applying the classifier(Logistic regression) on the final outputs, synthetic feature vectors and orignal vectors.
 
+## Download the raw data
+We do the preprocessing to make the dataset become the binary class.<br />
+Pima : https://www.kaggle.com/uciml/pima-indians-diabetes-database<br />
+Haberman's : https://archive.ics.uci.edu/ml/datasets/Haberman's+Survival<br />
+Satimage : https://archive.ics.uci.edu/ml/datasets/Statlog+(Landsat+Satellite)<br />
+E.Coil : https://archive.ics.uci.edu/ml/datasets/ecoli<br />
+Shuttle : https://archive.ics.uci.edu/ml/datasets/Statlog+(Shuttle)<br />
+ionosphere : https://archive.ics.uci.edu/ml/datasets/ionosphere<br />
+GiveMeSomeCredit : https://www.kaggle.com/c/GiveMeSomeCredit<br />
